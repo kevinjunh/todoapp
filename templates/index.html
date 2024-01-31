@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo App</title>
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Todo App</h1>
+
+        <!-- Add task -->
+        <div class="add">
+            <form method="POST" action="/add">
+                <div class="bar">
+                    <!-- title -->
+                    <div class="title">
+                        <input type="text" name="title" id="title" placeholder="Add Todo" required>
+                    </div>
+
+                    <!-- button -->
+                    <div class="confirm">
+                        <button type="submit">Add</button>
+                    </div>
+                </div>
+
+                <!-- others info -->
+                <div class="info">
+                    <!-- projects -->
+                    <div class="projects">
+                        <select name="project" id="project">
+                            <option value="" disabled selected>Choose project</option>
+                            {% for project in projects %}
+                                <option value="{{ project.id }}" {% if todo and todo.project and project.id == todo.project.id %}selected{% endif %}>{{ project.name }}</option>
+                            {% endfor %}
+                            <option value="new">Add New</option>
+                        </select>
+                        <input type="text" name="new_project" id="new_project" placeholder="New project" disabled>
+                    </div>
+    
+                    <!-- date -->
+                    <div class="date">
+                        <input type="date" name="date" id="date">
+                    </div>
+    
+                    <!-- priority -->
+                    <div class="priority">
+                        <select name="priority" id="priority">
+                            <option value="" disabled selected>Choose Priority</option>
+                            <option value="P1">P1</option>
+                            <option value="P2">P2</option>
+                            <option value="P3">P3</option>
+                        </select>
+                    </div>
+            </form>
+        </div>
+
+        <!-- Show tasks -->
+        <div class="show">
+            <ul>
+                {% for todo in todo_list %}
+                <li>
+                    <div class="check">
+                        <form method="POST" action="{{ url_for('complete', todo_id=todo.id) }}">
+                            <input type="checkbox" name="completed" {% if todo.completed %}checked{% endif %} onchange="this.form.submit()">
+                        </form>
+                    </div>
+
+                    <div class="title todo{% if todo.completed %} completed{% endif %}">
+                        <label for="completed_{{ todo.id }}">{{ todo.title }}</label>
+                    </div>
+                    <div class="priority todo{% if todo.completed %} completed{% endif %}">
+                        <span>{{ todo.priority if todo.priority else '' }}</span>
+                    </div>
+                    <div class="date todo{% if todo.completed %} completed{% endif %}">
+                        <span>{{ todo.date.strftime('%Y-%m-%d') if todo.date else '' }}</span>
+                    </div>
+                    <div class="project todo{% if todo.completed %} completed{% endif %}">
+                        <span>{{ todo.project.name if todo.project else '' }}</span>
+                    </div>
+
+                    <!-- edit -->
+                    <div class="edit">
+                        <a href="{{ url_for('edit', todo_id=todo.id) }}">
+                            <img src="static/img/bx-edit.svg" alt="edit_icon">
+                        </a>
+                    </div>
+    
+                    <!-- delete -->
+                    <div class="delete">
+                        <form method="POST" action="/delete/{{ todo.id }}">
+                            <button type="submit" class="icon-button">
+                                <img src="static/img/bx-x.svg" alt="delete_icon">
+                            </button>
+                        </form>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <script src="static/js/script.js"></script>
+</body>
+</html>

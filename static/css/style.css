@@ -1,0 +1,159 @@
+/* Reset */
+body, h1, h2, ul, p {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: #f3f3f3;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* app title */
+h1 {
+    text-align: center;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Add tasks */
+.add,
+.edit {
+    background-color: #f4f4f4;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.title {
+    flex-grow: 1;
+}
+
+/* Input fields */
+.title input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.confirm {
+    margin-left: 10px;
+}
+
+.confirm button {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.info {
+    display: flex;
+    justify-content: left;
+    margin-bottom: 20px;
+}
+
+.projects {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
+
+#new_project:disabled {
+    display: none;
+}
+
+.projects input{
+    padding: 5px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+}
+
+.date,
+.priority {
+    margin-right: 20px;
+}
+
+.projects select,
+.date input,
+.priority select {
+    padding: 5px;
+    border: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Show tasks */
+.show {
+    margin-top: 20px;
+}
+
+.show ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Individual task item */
+.show li {
+    background-color: #fff;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+.task-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Checkbox for completed tasks */
+.check input {
+    margin-right: 20px;
+    transform: scale(1.5);
+}
+
+.completed {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+ 
+.icon-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.delete,
+.edit {
+    margin-left: 10px;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    .add,
+    .show li {
+        flex-direction: column;
+    }
+
+    .check input {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}

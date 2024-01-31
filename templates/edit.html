@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Todo</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Edit</h1>
+
+        <!-- Edit task -->
+        <div class="edit">
+            <form method="POST" action="/edit/{{ todo.id }}">
+                <div class="bar">
+                    <!-- title -->
+                    <div class="title">
+                        <input value="{{ todo.title }}" type="text" name="title" id="title" required>
+                    </div>
+
+                    <!-- button -->
+                    <div class="confirm">
+                        <button type="submit">Save</button>
+                    </div>
+                </div>
+
+                <!-- others info -->
+                <div class="info">
+                    <!-- projects -->
+                    <div class="projects">
+                        <select name="project" id="project">
+                            <option value="" disabled selected>Choose project</option>
+                            {% for project in projects %}
+                                <option value="{{ project.id }}" {% if todo and todo.project and project.id == todo.project.id %}selected{% endif %}>{{ project.name }}</option>
+                            {% endfor %}
+                            <option value="new">Add New</option>
+                        </select>
+                        <input type="text" name="new_project" id="new_project" placeholder="New project" disabled>
+                    </div>
+    
+                    <!-- date -->
+                    <div class="date">
+                        <input value="{{ todo.date.strftime('%Y-%m-%d') if todo.date else '' }}" type="date" name="date" id="date">
+                    </div>
+    
+                    <!-- priority -->
+                    <div class="priority">
+                        <select name="priority" id="priority">
+                            {% if not todo.priority %}
+                                <option value="" disabled selected>Choose Priority</option>
+                            {% endif %}
+                            {% for option in ['P1', 'P2', 'P3'] %}
+                                <option value="{{ option }}" {% if todo.priority == option %}selected{% endif %}>{{ option }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../static/js/script.js"></script>
+</body>
+</html>
